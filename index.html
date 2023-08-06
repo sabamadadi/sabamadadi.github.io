@@ -65,12 +65,31 @@
 							<section class="posts">
 								<article>
 									<head>
+										<style>
+												    .video-wrapper {
+												      position: relative;
+												      width: 100%;
+												      height: 0;
+												      padding-bottom: 56.25%;
+												    }
+												
+												    .video-wrapper video {
+												      position: absolute;
+												      top: 50%;
+												      left: 50%;
+												      transform: translate(-50%, -50%);
+												      width: 100%;
+												      height: 100%;
+												    }
+												  </style>
 										  <title>Video Example</title>
 										</head>
 										<body>
+											<div class="video-wrapper">
 										  <video src="Gaming Programming.mp4" controls>
 										    Your browser does not support the video tag.
 										  </video>
+												</div>
 										</body>
 									<header>
 										<span class="date"> August 02, 2023 </span>
