@@ -91,11 +91,23 @@
 										Appreciation is a form of showing a positive sentiment and message to the person receiving the kindness. Expressing gratitude can also be effective in reinforcing positive social behaviors.</p>
 									</header>
 									
-									<p> <div style="display: flex; justify-content: center;">
-  <a href="https://www.coffeebede.com/sabamadadi">
-    <img class="img-fluid" src="https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg" />
-  </a>
-</div> </p>
+									<p> <div id="dynamic-content-container"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var dynamicContentContainer = document.getElementById("dynamic-content-container");
+
+    var link = document.createElement("a");
+    link.href = "https://www.coffeebede.com/sabamadadi";
+
+    var image = document.createElement("img");
+    image.className = "img-fluid";
+    image.src = "https://coffeebede.ir/DashboardTemplateV2/app-assets/images/banner/default-yellow.svg";
+
+    link.appendChild(image);
+    dynamicContentContainer.appendChild(link);
+  });
+</script> </p>
 									<ul class="actions special">
 										<!--<li><a href="https://www.canva.com/design/DAFqUiyXuJ4/hrXP9oRJlReYrIdftI4cMQ/view" class="button"> Presentation 🖇 </a></li>-->
 									</ul>
