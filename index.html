@@ -2,6 +2,38 @@
 <html>
 <head>
   <title> Saba Madadi </title>
+	  <style>
+    .glitter-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .glitter {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: glitter 5s ease-in-out infinite;
+    }
+
+    @keyframes glitter {
+      0% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(50%, 50%);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+    }
+  </style>
   <link rel="icon" href="images/Me1.png"> <!-- Favicon for the website -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> <!-- Responsive meta tag -->
@@ -21,6 +53,17 @@
 </head>
 
 <body class="dynamic-bg"> <!-- Apply the "dynamic-bg" class to the body element -->
+	<body>
+  <div class="glitter-container">
+    <div class="glitter"></div>
+    <div class="glitter"></div>
+    <div class="glitter"></div>
+    <!-- Add more glitter elements as desired -->
+  </div>
+
+  <h1>Welcome to my website!</h1>
+  <p>This is the content of my website page.</p>
+</body>
 </body>
 </html>
 
