@@ -2,38 +2,6 @@
 <html>
 <head>
   <title> Saba Madadi </title>
-	  <style>
-    .glitter-container {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .glitter {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: #fff;
-      border-radius: 50%;
-      animation: glitter 5s ease-in-out infinite;
-    }
-
-    @keyframes glitter {
-      0% {
-        transform: translate(-50%, -50%);
-        opacity: 1;
-      }
-      50% {
-        transform: translate(50%, 50%);
-        opacity: 0.5;
-      }
-      100% {
-        transform: translate(-50%, -50%);
-        opacity: 1;
-      }
-    }
-  </style>
   <link rel="icon" href="images/Me1.png"> <!-- Favicon for the website -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> <!-- Responsive meta tag -->
@@ -41,6 +9,33 @@
   <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript> <!-- CSS file for browsers with JavaScript disabled -->
   
   <style>
+     .butterfly {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-image: url('butterfly.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: fly 10s linear infinite;
+    }
+
+    @keyframes fly {
+      0% {
+        transform: translate(-10%, -10%);
+      }
+      25% {
+        transform: translate(110%, 25%);
+      }
+      50% {
+        transform: translate(50%, 100%);
+      }
+      75% {
+        transform: translate(-25%, 50%);
+      }
+      100% {
+        transform: translate(-10%, -10%);
+      }
+    }
     .dynamic-bg {
       background-image: url("images/bg.png"); <!-- Background image for the body -->
       background-position: center;
@@ -52,18 +47,11 @@
   </style>
 </head>
 
-<body class="dynamic-bg"> <!-- Apply the "dynamic-bg" class to the body element -->
-	<body>
-  <div class="glitter-container">
-    <div class="glitter"></div>
-    <div class="glitter"></div>
-    <div class="glitter"></div>
-    <!-- Add more glitter elements as desired -->
-  </div>
-
-  <h1>Welcome to my website!</h1>
-  <p>This is the content of my website page.</p>
-</body>
+<body class="dynamic-bg">   <div class="butterfly"></div>
+  <div class="butterfly"></div>
+  <div class="butterfly"></div>
+	<!-- Apply the "dynamic-bg" class to the body element -->
+	
 </body>
 </html>
 
@@ -324,6 +312,17 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+  <script>
+    // Function to create a new butterfly element
+    function createButterfly() {
+      const butterfly = document.createElement('div');
+      butterfly.classList.add('butterfly');
+      document.body.appendChild(butterfly);
+    }
+
+    // Spawn new butterflies at random intervals
+    setInterval(createButterfly, 2000);
+  </script>
 
 	</body>
 </html>
