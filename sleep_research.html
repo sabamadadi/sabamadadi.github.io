@@ -1,57 +1,180 @@
-<section id="survey-paper" style="font-family: 'Arial', sans-serif; padding: 40px; background: #f8f9fa;">
-  <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">Survey on Automatic Sleep Stage Classification</h2>
-  <p style="text-align: center; max-width: 800px; margin: 0 auto 40px auto; color: #555;">
-    Automated sleep stage classification using polysomnography (PSG) signals, especially EEG, EOG, EMG, and ECG, has advanced significantly in recent years. This survey summarizes state-of-the-art methods including CNNs, Transformers, Attention Mechanisms, and multi-modal learning.
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title> Sleep Stage Classification </title>
+		<link rel="icon" href="images/pic5.jpg">
+		
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	 <style>
+    .dynamic-bg {
+      background-image: url("images/bg.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      height: 100vh;
+    }
+</style>
+</head>
+
+<body class="dynamic-bg">
+</body>
+
+				<!-- Header -->
+					<header id="header">
+						<a class="logo"> Advances in Deep Learning for Automatic Sleep Stage Classification: A Comprehensive Survey </a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+<!-- 							<li><a href="index.html">Home Page</a></li>
+							<li class="active"><a href="about_me.html">About Me</a></li> -->
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/saba-madadi-8a7374256/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+<!-- 							<li><a href="https://t.me/sabamadadi24" class="icon brands fa-telegram"><span class="label">Telegram</span></a></li> -->
+							<li><a href="https://github.com/sabamadadi" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+<!-- 									<span class="date"> July 17, 2023 </span> -->
+									<h1>Advances in Deep Learning for Automatic Sleep Stage Classification: A Comprehensive Survey</h1>
+
+  <h2>Abstract</h2>
+  <p>
+    Sleep stage classification is a critical component of sleep medicine and neuroscience research. Traditionally performed using polysomnography (PSG) and manual annotation, automatic sleep staging has emerged as a promising field leveraging machine learning and, more recently, deep learning methods. Convolutional neural networks (CNNs), recurrent neural networks (RNNs), attention-based mechanisms, and transformer architectures have significantly advanced performance across various datasets. 
+  </p>
+  <p>
+    This survey reviews recent progress in automatic sleep staging with a focus on model architectures, feature extraction techniques, multimodal integration, and dataset usage. We systematically analyze representative models such as <b>SleePyCo, DeepSleepNet-Lite, SleepEGAN, L-SeqSleepNet, XSleepNet, CTCNet</b>, and others, highlighting their contributions, advantages, and limitations. Furthermore, we provide a quantitative overview of dataset popularity (e.g., Sleep-EDF, SHHS, MASS, ISRUC) and methodological trends. Finally, we discuss open challenges, including class imbalance, generalizability, real-time implementation, and future directions.
   </p>
 
-  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  <h2>1. Introduction</h2>
+  <p>
+    Sleep staging is crucial in healthcare, but manual annotation is time-consuming and subjective. With the rise of deep learning, automatic sleep staging has advanced significantly. This survey provides a structured overview of recent models, datasets, preprocessing strategies, and future challenges in this domain.
+  </p>
 
-    <!-- Dataset Card -->
-    <div style="flex: 1 1 300px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-      <h3 style="color: #16a085;">Datasets</h3>
-      <ul>
-        <li><strong>Sleep-EDF Expanded:</strong> 197 recordings, EEG/EOG/EMG, R&K <a href="https://www.physionet.org/content/sleep-edfx/1.0.0/">Link</a></li>
-        <li><strong>SHHS:</strong> 9736 recordings, EEG/EOG/EMG/ECG/airflow, R&K/AASM <a href="https://www.physionet.org/content/shhpsgdb/1.0.0/">Link</a></li>
-        <li><strong>MASS:</strong> 200 recordings, EEG/EOG/EMG, AASM <a href="http://www.ceams-carsm.ca/mass">Link</a></li>
-        <li><strong>ISRUC:</strong> 100+ recordings, EEG/EOG/EMG</li>
-        <li><strong>CAP Sleep Database:</strong> 108 recordings, EEG/EOG/EMG/Respiration <a href="https://physionet.org/content/capslpdb/1.0.0/">Link</a></li>
-      </ul>
-    </div>
+  <h2>2. Background</h2>
+  <h3>2.1 Sleep Architecture and Staging Rules</h3>
+  <p>
+    Sleep is divided into Wake, N1, N2, N3, and REM stages based on AASM guidelines. These stages reflect brain activity and physiological signals during rest.
+  </p>
 
-    <!-- Models Card -->
-    <div style="flex: 1 1 300px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-      <h3 style="color: #2980b9;">Model Architectures</h3>
-      <ul>
-        <li><strong>CNNs:</strong> SleePyCo, DeepSleepNet-Lite, Wavelet-based CNN</li>
-        <li><strong>RNN / LSTM:</strong> L-SeqSleepNet, RED (BLSTM + CNN)</li>
-        <li><strong>Transformers:</strong> Cross-Modal Transformers, SleepEGAN, FPJA-Net</li>
-        <li><strong>Hybrid / Multi-Modal:</strong> NeuroNet, MGANet, BIOT</li>
-      </ul>
-    </div>
+  <h3>2.2 Data Sources</h3>
+  <p>
+    Polysomnography (PSG) is the gold standard, recording EEG, EOG, EMG, ECG, and respiration. Wearables also provide PPG and limited EEG, expanding accessibility.
+  </p>
 
-    <!-- Evaluation Card -->
-    <div style="flex: 1 1 300px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-      <h3 style="color: #c0392b;">Evaluation Metrics</h3>
-      <ul>
-        <li>Accuracy (%)</li>
-        <li>Macro F1-score</li>
-        <li>Cohen's kappa (κ)</li>
-        <li>Sensitivity & Precision per stage</li>
-        <li>Dataset-specific examples: ISRUC-SG1 Accuracy 97.74%, F1 93.75%; Sleep-EDF Accuracy ~96%</li>
-      </ul>
-    </div>
+  <h2>3. Datasets</h2>
+  <p>
+    Widely used datasets include <b>Sleep-EDF</b>, <b>SHHS</b>, <b>MASS</b>, <b>ISRUC</b>, <b>MGH</b>, and <b>MESA</b>. Sleep-EDF and SHHS dominate research, while ISRUC and MASS include pathological cases. Dataset diversity influences model generalization.
+  </p>
 
-  </div>
+  <h2>4. Deep Learning Models</h2>
+  <h3>4.1 CNN-based Models</h3>
+  <p>
+    CNNs are dominant for local feature extraction. Examples: DeepSleepNet-Lite, CNN-attention hybrids. They are efficient but struggle with long-term dependencies.
+  </p>
 
-  <!-- Future Work / Challenges -->
-  <div style="margin-top: 40px; background: #ecf0f1; padding: 20px; border-radius: 12px;">
-    <h3 style="color: #8e44ad;">Challenges & Future Directions</h3>
-    <ul>
-      <li>Class imbalance (especially N1 stage) remains a challenge.</li>
-      <li>Generalization across populations and sleep disorders is limited.</li>
-      <li>Wearable EEG devices require adaptation to frontal channels.</li>
-      <li>Multi-modal fusion improves accuracy but increases computational complexity.</li>
-      <li>Lightweight models like FPJA-Net and CausalAttenNet enable real-time applications.</li>
-    </ul>
-  </div>
-</section>
+  <h3>4.2 RNN-based Models</h3>
+  <p>
+    RNNs (e.g., BiLSTM, GRU) model sequential dependencies. Example: L-SeqSleepNet. They capture temporal context but are computationally heavy.
+  </p>
+
+  <h3>4.3 Transformers and Attention</h3>
+  <p>
+    Transformers are increasingly used, e.g., SleePyCo, CTCNet, SleepTransformer. They provide interpretability and model intra/inter-epoch dependencies but require high memory.
+  </p>
+
+  <h3>4.4 Hybrid Models</h3>
+  <p>
+    Combining CNN + Transformer (e.g., CTCNet) or GAN-based approaches (e.g., SleepEGAN) improves performance. Graph-based and multimodal methods (EEG+EOG+EMG) are emerging.
+  </p>
+
+  <h3>4.5 Lightweight and Real-Time Models</h3>
+  <p>
+    DeepSleepNet-Lite and microcontroller-based models enable wearable deployment. These prioritize efficiency and low resource use.
+  </p>
+
+  <h2>5. Preprocessing & Features</h2>
+  <p>
+    Strategies range from raw EEG input to preprocessing with FFT, CWT, STFT, and ICA. Recent work explores self-supervised pretraining to reduce reliance on heavy feature engineering.
+  </p>
+
+  <h2>6. Quantitative Evaluation</h2>
+  <p>
+    Metrics include accuracy, F1-score, and Cohen’s Kappa. CNNs achieve high accuracy but limited generalization. Transformers balance performance and interpretability. GANs and SSL improve minority-stage detection.
+  </p>
+
+  <h2>7. Open Challenges & Future Directions</h2>
+  <ul>
+    <li>Class imbalance (especially N1 detection)</li>
+    <li>Generalization to pathological populations</li>
+    <li>Lightweight models for real-time wearables</li>
+    <li>Improved interpretability for clinical use</li>
+    <li>Self-supervised and federated learning</li>
+    <li>Cross-modal signal integration</li>
+  </ul>
+
+  <h2>8. Conclusion</h2>
+  <p>
+    Deep learning has transformed automatic sleep staging, with CNNs and transformers leading progress. Despite significant advances, challenges remain in generalization, class imbalance, and real-time deployment. Future research will focus on lightweight, interpretable, multimodal, and self-supervised models for broader clinical adoption.
+  </p>
+								
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<form method="post" action="#">
+								<div class="image main"><img src="images/pic5.jpg" alt="" /></div>
+							</form>
+						</section>
+						<section class="split contact">
+							<section>
+								<h3>Email</h3>
+								<p>                                                                    
+							            <a href="mailto:sa.madadi@mail.sbu.ac.ir">mailto:sa.madadi@mail.sbu.ac.ir</a>
+							        </p>  
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="https://www.linkedin.com/in/saba-madadi-8a7374256/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://t.me/sabamadadi24" class="icon brands fa-telegram"><span class="label">Telegram</span></a></li>
+							<li><a href="https://github.com/sabamadadi" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+				<!-- Copyright -->
+					<div id="">
+						<ul><li></li><li><a href=""></a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
+
+
