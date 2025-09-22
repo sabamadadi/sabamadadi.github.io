@@ -25,7 +25,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<a class="logo"> Advances in Deep Learning for Automatic Sleep Stage Classification: A Comprehensive Survey </a>
+						<a class="logo"> Sleep Stage Classification </a>
 					</header>
 
 				<!-- Nav -->
@@ -45,90 +45,145 @@
 					<div id="main">
 
 						<!-- Post -->
-							<section class="post">
+							<section class="post"; style="text-align: left; direction: ltr;">
 								<header class="major">
 <!-- 									<span class="date"> July 17, 2023 </span> -->
-									<h1>Advances in Deep Learning for Automatic Sleep Stage Classification: A Comprehensive Survey</h1>
+									<h2>Advances in Deep Learning for Automatic Sleep Stage Classification: A Comprehensive Survey</h2>
 
-  <h2>Abstract</h2>
+  <h3>Abstract</h3>
   <p>
-    Sleep stage classification is a critical component of sleep medicine and neuroscience research. Traditionally performed using polysomnography (PSG) and manual annotation, automatic sleep staging has emerged as a promising field leveraging machine learning and, more recently, deep learning methods. Convolutional neural networks (CNNs), recurrent neural networks (RNNs), attention-based mechanisms, and transformer architectures have significantly advanced performance across various datasets. 
-  </p>
-  <p>
-    This survey reviews recent progress in automatic sleep staging with a focus on model architectures, feature extraction techniques, multimodal integration, and dataset usage. We systematically analyze representative models such as <b>SleePyCo, DeepSleepNet-Lite, SleepEGAN, L-SeqSleepNet, XSleepNet, CTCNet</b>, and others, highlighting their contributions, advantages, and limitations. Furthermore, we provide a quantitative overview of dataset popularity (e.g., Sleep-EDF, SHHS, MASS, ISRUC) and methodological trends. Finally, we discuss open challenges, including class imbalance, generalizability, real-time implementation, and future directions.
-  </p>
-
-  <h2>1. Introduction</h2>
-  <p>
-    Sleep staging is crucial in healthcare, but manual annotation is time-consuming and subjective. With the rise of deep learning, automatic sleep staging has advanced significantly. This survey provides a structured overview of recent models, datasets, preprocessing strategies, and future challenges in this domain.
-  </p>
-
-  <h2>2. Background</h2>
-  <h3>2.1 Sleep Architecture and Staging Rules</h3>
-  <p>
-    Sleep is divided into Wake, N1, N2, N3, and REM stages based on AASM guidelines. These stages reflect brain activity and physiological signals during rest.
+    Sleep stage classification is a fundamental task in both clinical and research domains of sleep medicine. 
+    Manual scoring, though considered the gold standard, is time-consuming, subjective, and requires expertise. 
+    The last decade has witnessed the rapid growth of deep learning approaches that can process raw polysomnography (PSG) signals 
+    and automatically assign sleep stages with high accuracy. 
+    In this survey, we present a structured overview of recent advances in automatic sleep staging with a focus on 
+    <b>model architectures, feature engineering strategies, multimodal data integration, dataset utilization, and evaluation methodologies</b>. 
+    We review representative models such as <i>DeepSleepNet-Lite, SleePyCo, L-SeqSleepNet, CTCNet, XSleepNet, SleepEGAN</i>, 
+    highlighting their innovations, strengths, and limitations. 
+    Furthermore, we analyze dataset usage trends, emphasizing the dominance of Sleep-EDF and SHHS. 
+    We conclude with a discussion on current challenges — particularly class imbalance, generalizability, interpretability, and real-time deployment — 
+    and propose future directions involving self-supervised learning, multimodal fusion, and lightweight architectures for wearable devices.
   </p>
 
-  <h3>2.2 Data Sources</h3>
+  <h3>1. Introduction</h3>
   <p>
-    Polysomnography (PSG) is the gold standard, recording EEG, EOG, EMG, ECG, and respiration. Wearables also provide PPG and limited EEG, expanding accessibility.
+    Sleep plays a critical role in human health, with its disruption linked to neurological disorders, cardiovascular diseases, 
+    and reduced cognitive performance. 
+    Traditionally, sleep stages are scored in 30-second epochs according to the <b>AASM</b> or <b>R&K</b> guidelines. 
+    Manual annotation requires substantial effort and suffers from inter-rater variability. 
+    Machine learning initially attempted to automate this process with handcrafted features, 
+    but lacked the flexibility to generalize across datasets. 
+    The adoption of <b>deep learning</b> — particularly CNNs, RNNs, and Transformers — 
+    has enabled end-to-end learning from raw signals and outperformed classical approaches. 
+    The purpose of this survey is to provide an in-depth analysis of recent work and to chart possible future research pathways.
   </p>
 
-  <h2>3. Datasets</h2>
+  <h3>2. Background</h3>
+  <h4>2.1 Sleep Architecture and Staging Rules</h4>
   <p>
-    Widely used datasets include <b>Sleep-EDF</b>, <b>SHHS</b>, <b>MASS</b>, <b>ISRUC</b>, <b>MGH</b>, and <b>MESA</b>. Sleep-EDF and SHHS dominate research, while ISRUC and MASS include pathological cases. Dataset diversity influences model generalization.
+    Human sleep cycles through five stages: Wake (W), N1, N2, N3 (deep sleep), and REM. 
+    N1 is light sleep and notoriously difficult to classify due to its transient characteristics and similarity with Wake/REM. 
+    The American Academy of Sleep Medicine (AASM) guidelines standardized the scoring rules used by most studies. 
   </p>
 
-  <h2>4. Deep Learning Models</h2>
-  <h3>4.1 CNN-based Models</h3>
+  <h4>2.2 Data Sources</h4>
   <p>
-    CNNs are dominant for local feature extraction. Examples: DeepSleepNet-Lite, CNN-attention hybrids. They are efficient but struggle with long-term dependencies.
+    The gold standard is <b>polysomnography (PSG)</b>, recording EEG, EOG, EMG, ECG, respiratory effort, and oxygen saturation. 
+    Recently, <b>wearables</b> such as EEG headbands and PPG-based devices have gained traction for large-scale, real-world monitoring. 
+    These developments have encouraged multimodal deep learning methods that integrate multiple physiological channels.
   </p>
 
-  <h3>4.2 RNN-based Models</h3>
+  <h3>3. Datasets</h3>
   <p>
-    RNNs (e.g., BiLSTM, GRU) model sequential dependencies. Example: L-SeqSleepNet. They capture temporal context but are computationally heavy.
+    Public datasets have driven advances in this field. The most widely used include:
   </p>
-
-  <h3>4.3 Transformers and Attention</h3>
-  <p>
-    Transformers are increasingly used, e.g., SleePyCo, CTCNet, SleepTransformer. They provide interpretability and model intra/inter-epoch dependencies but require high memory.
-  </p>
-
-  <h3>4.4 Hybrid Models</h3>
-  <p>
-    Combining CNN + Transformer (e.g., CTCNet) or GAN-based approaches (e.g., SleepEGAN) improves performance. Graph-based and multimodal methods (EEG+EOG+EMG) are emerging.
-  </p>
-
-  <h3>4.5 Lightweight and Real-Time Models</h3>
-  <p>
-    DeepSleepNet-Lite and microcontroller-based models enable wearable deployment. These prioritize efficiency and low resource use.
-  </p>
-
-  <h2>5. Preprocessing & Features</h2>
-  <p>
-    Strategies range from raw EEG input to preprocessing with FFT, CWT, STFT, and ICA. Recent work explores self-supervised pretraining to reduce reliance on heavy feature engineering.
-  </p>
-
-  <h2>6. Quantitative Evaluation</h2>
-  <p>
-    Metrics include accuracy, F1-score, and Cohen’s Kappa. CNNs achieve high accuracy but limited generalization. Transformers balance performance and interpretability. GANs and SSL improve minority-stage detection.
-  </p>
-
-  <h2>7. Open Challenges & Future Directions</h2>
   <ul>
-    <li>Class imbalance (especially N1 detection)</li>
-    <li>Generalization to pathological populations</li>
-    <li>Lightweight models for real-time wearables</li>
-    <li>Improved interpretability for clinical use</li>
-    <li>Self-supervised and federated learning</li>
-    <li>Cross-modal signal integration</li>
+    <li><b>Sleep-EDF</b>: The most cited dataset, widely used for benchmarking.</li>
+    <li><b>SHHS</b>: A large cohort study with diverse populations.</li>
+    <li><b>MASS</b>: Provides multiple modalities with high-quality annotations.</li>
+    <li><b>ISRUC</b>: Includes both healthy and pathological subjects.</li>
+    <li><b>MESA, MGH, DREAMS, CAPS</b>: Supplementary datasets focusing on specific conditions or populations.</li>
+  </ul>
+  <p>
+    Surveys show that Sleep-EDF and SHHS dominate research usage, with >60% of studies relying on them. 
+    ISRUC and MASS are gaining attention due to their pathological data, enabling better model generalization.
+  </p>
+
+  <h3>4. Deep Learning Models</h3>
+
+  <h4>4.1 Convolutional Neural Networks (CNNs)</h4>
+  <p>
+    CNNs have been the most dominant approach due to their ability to extract time-frequency features from raw EEG. 
+    Models like <b>DeepSleepNet-Lite</b> and various CNN-attention hybrids achieve strong performance. 
+    They are computationally efficient but limited in modeling long-term temporal dependencies across epochs.
+  </p>
+
+  <h4>4.2 Recurrent Neural Networks (RNNs)</h4>
+  <p>
+    RNNs (especially BiLSTM and GRU) are designed to capture sequential information. 
+    <b>L-SeqSleepNet</b> is a prominent example, modeling temporal context effectively. 
+    However, RNNs are computationally intensive and prone to vanishing gradients.
+  </p>
+
+  <h4>4.3 Transformers and Attention Mechanisms</h4>
+  <p>
+    Transformers have recently gained popularity, with models like <b>SleePyCo, CTCNet, SleepTransformer</b> 
+    leveraging self-attention to capture intra- and inter-epoch dependencies. 
+    They offer improved interpretability and generalization but demand significant memory and training data.
+  </p>
+
+  <h4>4.4 Hybrid Architectures</h4>
+  <p>
+    Hybrid models combine CNNs and Transformers (e.g., <b>CTCNet</b>) or incorporate GANs (e.g., <b>SleepEGAN</b>) 
+    to augment minority classes. 
+    Cross-modal methods (EEG+EOG+EMG) are emerging to exploit multimodal PSG data.
+  </p>
+
+  <h4>4.5 Lightweight and Real-Time Models</h4>
+  <p>
+    Deployment on wearable devices requires efficiency. 
+    <b>DeepSleepNet-Lite</b> and microcontroller-based CNN-Transformer models have shown promise 
+    in running on low-power devices such as Arduino Nano.
+  </p>
+
+  <h3>5. Preprocessing and Feature Engineering</h3>
+  <p>
+    Strategies vary: some models use raw EEG; others apply preprocessing techniques like band-pass filtering, 
+    <b>FFT, STFT, CWT</b>, or artifact removal methods such as ICA and WASR. 
+    Recently, <b>self-supervised learning</b> (e.g., ContraWR, NeuroNet) has been explored to pre-train on unlabeled data, 
+    reducing dependence on manual feature extraction.
+  </p>
+
+  <h3>6. Quantitative Evaluation</h3>
+  <p>
+    Evaluation metrics include Accuracy, F1-score, and Cohen’s Kappa. Key observations:
+  </p>
+  <ul>
+    <li>CNNs often achieve >90% accuracy on Sleep-EDF but drop in cross-dataset tests.</li>
+    <li>Transformers provide a better balance between accuracy and interpretability.</li>
+    <li>GAN-based and SSL approaches improve minority class (N1) recognition.</li>
+    <li>Class imbalance remains a bottleneck for fair performance across all stages.</li>
   </ul>
 
-  <h2>8. Conclusion</h2>
+  <h3>7. Open Challenges and Future Directions</h3>
+  <ul>
+    <li><b>Class Imbalance:</b> N1 remains underrepresented, requiring weighted losses or synthetic augmentation.</li>
+    <li><b>Pathological Generalization:</b> Most models are trained on healthy populations, limiting clinical applicability.</li>
+    <li><b>Real-Time Deployment:</b> Wearable integration demands lightweight, energy-efficient models.</li>
+    <li><b>Interpretability:</b> Transformer-based attention aids transparency, but clinical trust requires further validation.</li>
+    <li><b>Self-Supervised and Federated Learning:</b> Promising for large-scale and privacy-preserving applications.</li>
+    <li><b>Cross-Modal Fusion:</b> Integrating EEG, PPG, respiration, and other signals could improve robustness.</li>
+  </ul>
+
+  <h3>8. Conclusion</h3>
   <p>
-    Deep learning has transformed automatic sleep staging, with CNNs and transformers leading progress. Despite significant advances, challenges remain in generalization, class imbalance, and real-time deployment. Future research will focus on lightweight, interpretable, multimodal, and self-supervised models for broader clinical adoption.
+    Automatic sleep stage classification has rapidly evolved with the adoption of deep learning. 
+    CNNs dominate feature extraction, while attention-based Transformers enhance interpretability and sequence modeling. 
+    Sleep-EDF and SHHS remain central to benchmarking, but generalization challenges highlight the need for more diverse datasets. 
+    Future progress will likely involve <b>self-supervised multimodal models, lightweight architectures for real-time use, 
+    and interpretable frameworks</b> for clinical adoption.
   </p>
+
 								
 							</section>
 
