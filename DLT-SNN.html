@@ -40,6 +40,12 @@
     color: #444;
     margin: 0 5px;
 }
+.layer-dims {
+    font-size: 1.1em;
+    font-family: monospace;
+    font-weight: bold;
+    padding: 0 5px;
+}
 
 </style>
 </head>
@@ -68,18 +74,18 @@
 
   <h3>Abstract</h3>
   <p>
-    Spiking Neural Networks (SNNs) are gaining prominence for their energy efficiency, but their performance is often hampered by the static nature of their neuron parameters, such as the firing threshold (<span class="math-var">&Theta;</span>). This paper introduces the <strong>ThetaLIF Node</strong>, a novel Leaky Integrate-and-Fire (LIF) neuron variant featuring a <strong>state-dependent, dynamic threshold</strong>. The threshold is predicted at each time step by a feed-forward network based on the neuron's previous state variables, enabling adaptation to input dynamics. We evaluate a four-layer ThetaLIF-SNN on a 10-class image classification task, demonstrating the feasibility of integrating adaptive parameters within a standard SNN architecture using backpropagation through time. Initial results show promising performance improvement over epochs, suggesting the dynamic threshold mechanism enhances the network's learning capability and temporal representation capacity.
+  	Spiking Neural Networks (SNNs) are gaining prominence for their energy efficiency, but their performance is often hampered by the static nature of their neuron parameters, such as the firing threshold (<span class="math-var">&Theta;</span>). This paper introduces the <strong>ThetaLIF Node</strong>, a novel Leaky Integrate-and-Fire (LIF) neuron variant featuring a <strong>state-dependent, dynamic threshold</strong>. The threshold is predicted at each time step by a feed-forward network based on the neuron's previous state variables, enabling adaptation to input dynamics. We evaluate a four-layer ThetaLIF-SNN on a 10-class image classification task, demonstrating the feasibility of integrating adaptive parameters within a standard SNN architecture using backpropagation through time. Initial results show promising performance improvement over epochs, suggesting the dynamic threshold mechanism enhances the network's learning capability and temporal representation capacity.
   </p>
 
   <h3>1. Introduction</h3>
   <p>
-    The quest for more biologically plausible and energy-efficient neural networks has driven the recent resurgence of Spiking Neural Networks (SNNs). Unlike conventional deep learning models, SNNs rely on sparse, discrete spike events, which promise significant power savings on neuromorphic hardware. However, training deep SNNs remains challenging, often requiring surrogate gradient methods and suffering from performance limitations due to the fixed nature of key neuron parameters like the membrane time constant (<span class="math-var">&tau;</span>) and the firing threshold (<span class="math-var">&Theta;</span>). This fixed-parameter constraint limits the neuron's ability to adapt its firing behavior dynamically to the input sequence over time. To address this, we propose the <strong>ThetaLIF Node</strong>, a custom LIF neuron with a dynamic, learnable threshold, and demonstrate its integration into a multi-layer SNN architecture.
+  	The quest for more biologically plausible and energy-efficient neural networks has driven the recent resurgence of Spiking Neural Networks (SNNs). Unlike conventional deep learning models, SNNs rely on sparse, discrete spike events, which promise significant power savings on neuromorphic hardware. However, training deep SNNs remains challenging, often requiring surrogate gradient methods and suffering from performance limitations due to the fixed nature of key neuron parameters like the membrane time constant (<span class="math-var">&tau;</span>) and the firing threshold (<span class="math-var">&Theta;</span>). This fixed-parameter constraint limits the neuron's ability to adapt its firing behavior dynamically to the input sequence over time. To address this, we propose the <strong>ThetaLIF Node</strong>, a custom LIF neuron with a dynamic, learnable threshold, and demonstrate its integration into a multi-layer SNN architecture.
   </p>
 
   <h3>2. Model Architecture and Methodology</h3>
   <h4>2.1 Custom LIF Neuron Implementation (CLIFNode)</h4>
   <p>
-    The foundation of our network is the custom <code>CLIFNode</code>, which inherits from a standard Leaky Integrate-and-Fire (LIF) model. The implementation is optimized for parallel computation on the GPU (<code>device = 'cuda'</code>) and supports efficient single-step and multi-step forward passes via a CuPy backend, crucial for accelerating the training of time-based SNNs. This customization allows for specialized backpropagation kernels and efficient memory management during training.
+  	The foundation of our network is the custom <code>CLIFNode</code>, which inherits from a standard Leaky Integrate-and-Fire (LIF) model. The implementation is optimized for parallel computation on the GPU (<code>device = 'cuda'</code>) and supports efficient single-step and multi-step forward passes via a CuPy backend, crucial for accelerating the training of time-based SNNs. This customization allows for specialized backpropagation kernels and efficient memory management during training.
   </p>
 
   <h4>2.2 Dynamic Threshold Neuron (ThetaLIFNode)</h4>
@@ -108,18 +114,18 @@
   	The overall network, named <code>SNN_MNIST</code>, is a four-layer fully connected SNN:
   </p>
   <ul>
-  	<li><strong>Input/Encoder:</strong> Raw input is encoded into spike trains using a <strong>Poisson Encoder</strong>. The input layer size is 3072, suggesting a flattened $32 \times 32 \times 3$ image input (e.g., a variant of MNIST or another small image dataset).</li>
+  	<li><strong>Input/Encoder:</strong> Raw input is encoded into spike trains using a <strong>Poisson Encoder</strong>. The input layer size is 3072, suggesting a flattened <span class="math-var">32 &times; 32 &times; 3</span> image input (e.g., a variant of MNIST or another small image dataset).</li>
   	<li><strong>Network Topology:</strong> The network topology is defined by the following layer-wise transitions: 
         <div style="text-align: center; margin: 10px 0;">
-            $3072$ <span class="layer-transition">&rarr;</span> $256$ <span class="layer-transition">&rarr;</span> $64$ <span class="layer-transition">&rarr;</span> $32$ <span class="layer-transition">&rarr;</span> $10$
+            <span class="layer-dims">3072</span> <span class="layer-transition"> &rarr; </span> <span class="layer-dims">256</span> <span class="layer-transition"> &rarr; </span> <span class="layer-dims">64</span> <span class="layer-transition"> &rarr; </span> <span class="layer-dims">32</span> <span class="layer-transition"> &rarr; </span> <span class="layer-dims">10</span>
         </div>
-        Each transition consists of a **Linear layer** followed by a **ThetaLIFNode** for spiking non-linearity. The output layer has 10 neurons for classification.
+        Each transition consists of a <strong>Linear layer</strong> followed by a <strong>ThetaLIFNode</strong> for spiking non-linearity. The output layer has 10 neurons for classification.
     </li>
   	<li><strong>Temporal Simulation:</strong> The network runs for <span class="math-var">T=20</span> time steps. The final output is determined by the average firing rate (<code>out_fr / self.T</code>) of the output layer.</li>
   	<li><strong>Optimization:</strong> The model is trained using the <strong>Adam optimizer</strong> with a learning rate of $0.0001$. Mixed-precision training (<code>amp.GradScaler</code>, <code>amp.autocast</code>) is employed for faster convergence and reduced memory footprint.</li>
   </ul>
     <div class="figure-caption">
-        <strong>Figure 2: Overall SNN Topology.</strong> A block diagram of the <code>SNN_MNIST</code> model. The flow starts with the **Poisson Encoder**, followed by four sequential **Linear + ThetaLIFNode** layers, and ends at the 10-neuron output layer. Layer dimensions are explicitly labeled ($3072 \rightarrow 256 \rightarrow 64 \rightarrow 32 \rightarrow 10$).
+        <strong>Figure 2: Overall SNN Topology.</strong> A block diagram of the <code>SNN_MNIST</code> model. The flow starts with the **Poisson Encoder**, followed by four sequential **Linear + ThetaLIFNode** layers, and ends at the 10-neuron output layer. Layer dimensions are explicitly labeled (<span class="layer-dims">3072</span> &rarr; <span class="layer-dims">256</span> &rarr; <span class="layer-dims">64</span> &rarr; <span class="layer-dims">32</span> &rarr; <span class="layer-dims">10</span>).
     </div>
 
   <h3>3. Experimental Results</h3>
