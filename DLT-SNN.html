@@ -25,13 +25,19 @@
     font-style: italic;
     font-family: serif;
 }
-/* Styling for figure captions to stand out */
+/* Styling for figure captions to stand out (centered block) */
 .figure-caption {
     font-size: 0.9em;
-    text-align: center;
+    text-align: left; /* Ensure text starts at the left of the caption block */
     margin: 15px auto;
     border-top: 1px solid #ccc;
     padding-top: 10px;
+    width: 90%; /* Give it a defined width to align its internal text */
+}
+.figure-caption strong {
+    display: block; /* Ensure the figure title is on its own line */
+    text-align: center;
+    margin-bottom: 5px;
 }
 /* Styling for layer transition arrows */
 .layer-transition {
@@ -122,7 +128,7 @@
         Each transition consists of a <strong>Linear layer</strong> followed by a <strong>ThetaLIFNode</strong> for spiking non-linearity. The output layer has 10 neurons for classification.
     </li>
   	<li><strong>Temporal Simulation:</strong> The network runs for <span class="math-var">T=20</span> time steps. The final output is determined by the average firing rate (<code>out_fr / self.T</code>) of the output layer.</li>
-  	<li><strong>Optimization:</strong> The model is trained using the <strong>Adam optimizer</strong> with a learning rate of $0.0001$. Mixed-precision training (<code>amp.GradScaler</code>, <code>amp.autocast</code>) is employed for faster convergence and reduced memory footprint.</li>
+  	<li><strong>Optimization:</strong> The model is trained using the <strong>Adam optimizer</strong> with a learning rate of <span class="layer-dims">0.0001</span>. Mixed-precision training (<code>amp.GradScaler</code>, <code>amp.autocast</code>) is employed for faster convergence and reduced memory footprint.</li>
   </ul>
     <div class="figure-caption">
         <strong>Figure 2: Overall SNN Topology.</strong> A block diagram of the <code>SNN_MNIST</code> model. The flow starts with the **Poisson Encoder**, followed by four sequential **Linear + ThetaLIFNode** layers, and ends at the 10-neuron output layer. Layer dimensions are explicitly labeled (<span class="layer-dims">3072</span> &rarr; <span class="layer-dims">256</span> &rarr; <span class="layer-dims">64</span> &rarr; <span class="layer-dims">32</span> &rarr; <span class="layer-dims">10</span>).
@@ -168,8 +174,8 @@
 				<footer id="footer">
 						<section class="split contact">
 							<section>
-								<h3>Email</h3>
-								<p>                                                                    
+								<h3>Email </h3>
+								<p>
 							            <a href="mailto:sa.madadi@mail.sbu.ac.ir">mailto:sa.madadi@mail.sbu.ac.ir</a>
 							        </p>  
 							</section>
