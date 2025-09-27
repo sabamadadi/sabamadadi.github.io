@@ -131,7 +131,7 @@
   	<li><strong>Optimization:</strong> The model is trained using the <strong>Adam optimizer</strong> with a learning rate of <span class="layer-dims">0.0001</span>. Mixed-precision training (<code>amp.GradScaler</code>, <code>amp.autocast</code>) is employed for faster convergence and reduced memory footprint.</li>
   </ul>
     <div class="figure-caption">
-        <strong>Figure 2: Overall SNN Topology.</strong> A block diagram of the <code>SNN_MNIST</code> model. The flow starts with the <strong>Poisson Encoder</strong>, followed by four sequential **Linear + ThetaLIFNode** layers, and ends at the 10-neuron output layer. Layer dimensions are explicitly labeled (<span class="layer-dims">3072</span> &rarr; <span class="layer-dims">256</span> &rarr; <span class="layer-dims">64</span> &rarr; <span class="layer-dims">32</span> &rarr; <span class="layer-dims">10</span>).
+        <strong>Figure 2: Overall SNN Topology.</strong> A block diagram of the <code>SNN_MNIST</code> model. The flow starts with the <strong>Poisson Encoder</strong>, followed by four sequential <strong>Linear + ThetaLIFNode</strong> layers, and ends at the 10-neuron output layer. Layer dimensions are explicitly labeled (<span class="layer-dims">3072</span> &rarr; <span class="layer-dims">256</span> &rarr; <span class="layer-dims">64</span> &rarr; <span class="layer-dims">32</span> &rarr; <span class="layer-dims">10</span>).
     </div>
 
   <h3>3. Experimental Results</h3>
