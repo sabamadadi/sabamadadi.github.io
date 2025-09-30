@@ -150,7 +150,8 @@
     <p>
         Further analysis is required to fully characterize the dynamic behavior of the <code>ThetaLIF</code> node. Observing the change in neuron state over time reveals the adaptive nature of the threshold.
     </p>
-<div class="figure">
+
+							<div class="figure">
   <div class="figure-caption">
     <strong>Figure: Dynamic Neuron Behavior.</strong> 
     A time-series plot showing the membrane potential (<span class="math-var">V</span>), 
@@ -162,7 +163,7 @@
     <code>ThetaLIF</code> node.
   </div>
 
-  <!-- بالا: دو نمودار -->
+  <!-- دو نمودار بغل هم -->
   <div class="row">
     <div class="col">
       <img src="spike-plot.png" alt="Spike Output (S)" class="plot">
@@ -173,6 +174,34 @@
       <p class="caption">Membrane Potential (V) & Threshold (Θ)</p>
     </div>
   </div>
+</div>
+
+<style>
+  .row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;       /* فاصله بین نمودارها */
+    margin-top: 10px;
+  }
+  .col {
+    flex: 1;
+    text-align: center;
+  }
+  .plot {
+    width: 90%;      /* سایز کوچیک‌تر */
+    max-width: 350px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  .caption {
+    margin-top: 4px;
+    font-size: 13px;
+  }
+  .figure-caption {
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+</style>
 
   <h3>4. Conclusion</h3>
   <p>
