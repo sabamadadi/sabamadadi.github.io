@@ -151,9 +151,9 @@
         Further analysis is required to fully characterize the dynamic behavior of the <code>ThetaLIF</code> node. Observing the change in neuron state over time reveals the adaptive nature of the threshold.
     </p>
 
-							<div class="figure">
+	<div class="figure">
   <div class="figure-caption">
-    <strong>Figure: Membrane Potential (V) & Threshold (Θ) + Spike Output (S)</strong> 
+    <strong>Figure: Dynamic Neuron Behavior.</strong> 
     A time-series plot showing the membrane potential (<span class="math-var">V</span>), 
     the spike output (<span class="math-var">S</span>), and the 
     dynamically changing threshold (<span class="math-var">&Theta;</span>) 
@@ -166,12 +166,12 @@
   <!-- دو نمودار بغل هم -->
   <div class="row">
     <div class="col">
-      <img src="output2.png" alt="Spike Output (S)" class="plot">
-      <p class="caption">Spike Output (S)</p>
+      <h4 class="chart-title">Spike Output (S)</h4>
+      <img src="spike-plot.png" alt="Spike Output (S)" class="plot">
     </div>
     <div class="col">
-      <img src="output.png" alt="Membrane Potential and Threshold" class="plot">
-      <p class="caption">Membrane Potential (V) & Threshold (Θ)</p>
+      <h4 class="chart-title">Membrane Potential (V) & Threshold (Θ)</h4>
+      <img src="potential-threshold.png" alt="Membrane Potential and Threshold" class="plot">
     </div>
   </div>
 </div>
@@ -188,20 +188,21 @@
     text-align: center;
   }
   .plot {
-    width: 90%;      /* سایز کوچیک‌تر */
+    width: 90%;
     max-width: 350px;
     border: 1px solid #ccc;
     border-radius: 6px;
   }
-  .caption {
-    margin-top: 4px;
-    font-size: 13px;
+  .chart-title {
+    font-size: 15px;
+    margin-bottom: 6px;
   }
   .figure-caption {
     margin-bottom: 15px;
     font-size: 14px;
   }
 </style>
+
 
   <h3>4. Conclusion</h3>
   <p>
