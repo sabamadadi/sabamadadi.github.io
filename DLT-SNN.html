@@ -111,9 +111,7 @@
 	</div>
   	This recurrent structure allows the neuron's sensitivity to inputs to adapt based on its short-term history, a key feature for modeling complex temporal dependencies in sequential data.
   </p>
-    <div class="figure-caption">
-        <strong>Figure 1: ThetaLIF Neuron Architecture Diagram.</strong> A schematic showing the recurrent loop where the neuron's previous state variables (<span class="math-var">S<sub>t-1</sub></span>, <span class="math-var">&Theta;<sub>t-1</sub></span>, <span class="math-var">&mu;</span>(<span class="math-var">V<sub>t-1</sub></span>), <span class="math-var">&mu;</span>(<span class="math-var">&Theta;<sub>t-1</sub></span>)) feed into the <strong>Threshold Prediction MLP</strong> (<code>self.theta_linear</code>), which then outputs the new threshold <span class="math-var">&Theta;<sub>t</sub></span> for the LIF neuron.
-    </div>
+
 
   <h4>2.3 SNN Architecture and Training</h4>
   <p>
@@ -130,9 +128,7 @@
   	<li><strong>Temporal Simulation:</strong> The network runs for <span class="math-var">T=20</span> time steps. The final output is determined by the average firing rate (<code>out_fr / self.T</code>) of the output layer.</li>
   	<li><strong>Optimization:</strong> The model is trained using the <strong>Adam optimizer</strong> with a learning rate of <span class="layer-dims">0.0001</span>. Mixed-precision training (<code>amp.GradScaler</code>, <code>amp.autocast</code>) is employed for faster convergence and reduced memory footprint.</li>
   </ul>
-    <div class="figure-caption">
-        <strong>Figure 2: Overall SNN Topology.</strong> A block diagram of the <code>SNN_MNIST</code> model. The flow starts with the Poisson Encoder, followed by four sequential Linear + ThetaLIFNode layers, and ends at the 10-neuron output layer. Layer dimensions are explicitly labeled (<span class="layer-dims">3072</span> &rarr; <span class="layer-dims">256</span> &rarr; <span class="layer-dims">64</span> &rarr; <span class="layer-dims">32</span> &rarr; <span class="layer-dims">10</span>).
-    </div>
+
 
   <h3>3. Experimental Results</h3>
   <p>
@@ -149,16 +145,34 @@
   <p>
   	The consistent increase in test accuracy from 35.48% to over 45% demonstrates that the network effectively learns the task over training time. The relatively low baseline accuracy suggests the dataset is challenging (possibly CIFAR-10) or that the network requires further optimization, but the learning curve indicates the dynamic threshold is functional and capable of contributing to performance gains.
   </p>
-    <div class="figure-caption">
-        <strong>Figure 3: Training Progress (Accuracy and Loss Curves).</strong> A plot showing both Training and Test Accuracy, as well as Training and Test Loss, over the 5 epochs reported. This visually supports the numerical results, illustrating the consistent learning curve of the ThetaLIF-SNN.
-    </div>
+
 
     <p>
         Further analysis is required to fully characterize the dynamic behavior of the <code>ThetaLIF</code> node. Observing the change in neuron state over time reveals the adaptive nature of the threshold.
     </p>
-    <div class="figure-caption">
-        <strong>Figure 4: Dynamic Neuron Behavior.</strong> A time-series plot showing the membrane potential (<span class="math-var">V</span>), the spike output (<span class="math-var">S</span>), and the <strong>dynamically changing threshold (<span class="math-var">&Theta;</span>)</strong> for a single example neuron in one of the hidden layers (e.g., the last layer) over the <span class="math-var">T=20</span> time steps. This figure is crucial to visually demonstrate the core mechanism of the <code>ThetaLIF</code> node.
+<div class="figure">
+  <div class="figure-caption">
+    <strong>Figure: Dynamic Neuron Behavior.</strong> 
+    A time-series plot showing the membrane potential (<span class="math-var">V</span>), 
+    the spike output (<span class="math-var">S</span>), and the 
+    <strong>dynamically changing threshold (<span class="math-var">&Theta;</span>)</strong> 
+    for a single example neuron in one of the hidden layers 
+    (e.g., the last layer) over the <span class="math-var">T=20</span> time steps. 
+    This figure is crucial to visually demonstrate the core mechanism of the 
+    <code>ThetaLIF</code> node.
+  </div>
+
+  <!-- بالا: دو نمودار -->
+  <div class="row">
+    <div class="col">
+      <img src="output2.png" alt="Spike Output (S)" style="width:100%; border:1px solid #ccc;">
+      <p style="text-align:center; margin-top:4px;">Spike Output (S)</p>
     </div>
+    <div class="col">
+      <img src="output.png" alt="Membrane Potential and Threshold" style="width:100%; border:1px solid #ccc;">
+      <p style="text-align:center; margin-top:4px;">Membrane Potential (V) & Threshold (Θ)</p>
+    </div>
+  </div>
 
   <h3>4. Conclusion</h3>
   <p>
