@@ -10,10 +10,6 @@ Welcome to my personal academic website!
 
 Research experience, publications, projects, teaching activities, education, and blog posts.
 
-## 📬 Connect
-
-[LinkedIn](https://www.linkedin.com/in/sabamadadi/) · [GitHub](https://github.com/sabamadadi) · [Google Scholar](https://scholar.google.com/citations?user=KLoJUC0AAAAJ)
-
 ---
 
 💙 Built with HTML and CSS, hosted on GitHub Pages.
